@@ -13,19 +13,19 @@ export interface BalancerSdkConfig {
     //overwrite the subgraph url if you don't want to use the balancer labs maintained version
     customSubgraphUrl?: string;
     //optionally overwrite parts of the standard SOR config
-    sor?: BalancerSdkSorConfig;
+    sor?: Partial<BalancerSdkSorConfig>;
 }
 
 export interface BalancerSdkSorConfig {
     //use a built-in service or provide a custom implementation of a TokenPriceService
     //defaults to coingecko
-    tokenPriceService?: 'coingecko' | 'subgraph' | TokenPriceService;
+    tokenPriceService: 'coingecko' | 'subgraph' | TokenPriceService;
     //use a built-in service or provide a custom implementation of a PoolDataService
     //defaults to subgraph
-    poolDataService?: 'subgraph' | PoolDataService;
+    poolDataService: 'subgraph' | PoolDataService;
     //if a custom PoolDataService is provided, on chain balance fetching needs to be handled externally
     //default to true.
-    fetchOnChainBalances?: boolean;
+    fetchOnChainBalances: boolean;
 }
 
 export interface BalancerNetworkConfig {
