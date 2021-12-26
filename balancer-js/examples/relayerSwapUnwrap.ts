@@ -5,19 +5,13 @@ import { Wallet } from '@ethersproject/wallet';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
 
-import {
-    BalancerSDK,
-    Network,
-    ConfigSdk,
-    SUBGRAPH_URLS,
-    AaveHelpers,
-} from '../src/index';
+import { AaveHelpers, BalancerSDK, BalancerSdkConfig, Network } from '../src/index';
 import { FundManagement } from '../src/swapsService/types';
 import {
+    STABAL3PHANTOM,
     WRAPPED_AAVE_DAI,
     WRAPPED_AAVE_USDC,
     WRAPPED_AAVE_USDT,
-    STABAL3PHANTOM,
 } from './constants';
 
 import balancerRelayerAbi from '../src/abi/BalancerRelayer.json';
@@ -31,10 +25,9 @@ User must approve relayer
 Vault must have approvals for tokens
 */
 async function runRelayerSwapUnwrapExactIn() {
-    const config: ConfigSdk = {
+    const config: BalancerSdkConfig = {
         network: Network.KOVAN,
         rpcUrl: `https://kovan.infura.io/v3/${process.env.INFURA}`,
-        subgraphUrl: SUBGRAPH_URLS[Network.KOVAN],
     };
 
     const provider = new JsonRpcProvider(config.rpcUrl);
@@ -67,16 +60,8 @@ async function runRelayerSwapUnwrapExactIn() {
     );
 
     const txInfo = await balancer.relayer.swapUnwrapAaveStaticExactIn(
-        [
-            STABAL3PHANTOM.address,
-            STABAL3PHANTOM.address,
-            STABAL3PHANTOM.address,
-        ],
-        [
-            WRAPPED_AAVE_DAI.address,
-            WRAPPED_AAVE_USDC.address,
-            WRAPPED_AAVE_USDT.address,
-        ],
+        [STABAL3PHANTOM.address, STABAL3PHANTOM.address, STABAL3PHANTOM.address],
+        [WRAPPED_AAVE_DAI.address, WRAPPED_AAVE_USDC.address, WRAPPED_AAVE_USDT.address],
         [
             parseFixed('1', 16).toString(),
             parseFixed('1', 16).toString(),
@@ -87,17 +72,11 @@ async function runRelayerSwapUnwrapExactIn() {
         '50000000000000000' // Slippage 5%
     );
 
-    const relayerContract = new Contract(
-        relayerAddress,
-        balancerRelayerAbi,
-        provider
-    );
-    const tx = await relayerContract
-        .connect(wallet)
-        .callStatic[txInfo.function](txInfo.params, {
-            value: '0',
-            // gasLimit: '2000000',
-        });
+    const relayerContract = new Contract(relayerAddress, balancerRelayerAbi, provider);
+    const tx = await relayerContract.connect(wallet).callStatic[txInfo.function](txInfo.params, {
+        value: '0',
+        // gasLimit: '2000000',
+    });
 
     console.log(`Swap Deltas:`);
     console.log(defaultAbiCoder.decode(['int256[]'], tx[0]).toString());
@@ -112,10 +91,9 @@ User must approve relayer
 Vault must have approvals for tokens
 */
 async function runRelayerSwapUnwrapExactOut() {
-    const config: ConfigSdk = {
+    const config: BalancerSdkConfig = {
         network: Network.KOVAN,
         rpcUrl: `https://kovan.infura.io/v3/${process.env.INFURA}`,
-        subgraphUrl: SUBGRAPH_URLS[Network.KOVAN],
     };
 
     const provider = new JsonRpcProvider(config.rpcUrl);
@@ -148,33 +126,19 @@ async function runRelayerSwapUnwrapExactOut() {
     );
 
     const txInfo = await balancer.relayer.swapUnwrapAaveStaticExactOut(
-        [
-            STABAL3PHANTOM.address,
-            STABAL3PHANTOM.address,
-            STABAL3PHANTOM.address,
-        ],
-        [
-            WRAPPED_AAVE_DAI.address,
-            WRAPPED_AAVE_USDC.address,
-            WRAPPED_AAVE_USDT.address,
-        ],
+        [STABAL3PHANTOM.address, STABAL3PHANTOM.address, STABAL3PHANTOM.address],
+        [WRAPPED_AAVE_DAI.address, WRAPPED_AAVE_USDC.address, WRAPPED_AAVE_USDT.address],
         [parseFixed('1', 16).toString(), '1000', '1000'], // Amount of unwrapped Aave token we want to receive
         [daiRate, usdcRate, usdtRate],
         funds,
         '50000000000000000' // Slippage 5%
     );
 
-    const relayerContract = new Contract(
-        relayerAddress,
-        balancerRelayerAbi,
-        provider
-    );
-    const tx = await relayerContract
-        .connect(wallet)
-        .callStatic[txInfo.function](txInfo.params, {
-            value: '0',
-            // gasLimit: '2000000',
-        });
+    const relayerContract = new Contract(relayerAddress, balancerRelayerAbi, provider);
+    const tx = await relayerContract.connect(wallet).callStatic[txInfo.function](txInfo.params, {
+        value: '0',
+        // gasLimit: '2000000',
+    });
 
     console.log(`Swap Deltas:`);
     console.log(defaultAbiCoder.decode(['int256[]'], tx[0]).toString());

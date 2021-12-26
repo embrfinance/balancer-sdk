@@ -1,10 +1,9 @@
-import { JsonRpcProvider } from '@ethersproject/providers';
+import { Provider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
 import { SOR, SubgraphPoolBase } from '@balancer-labs/sor';
 
-import { ConfigSdk } from '../types';
-import { Network } from '../constants/network';
-import { SwapType, QueryWithSorInput, QueryWithSorOutput, BatchSwap } from './types';
+import { BalancerNetworkConfig } from '../types';
+import { BatchSwap, QueryWithSorInput, QueryWithSorOutput, SwapType } from './types';
 import { queryBatchSwap, queryBatchSwapWithSor } from './queryBatchSwap';
 import { balancerVault } from '../constants/contracts';
 import { getLimitsForSlippage } from './helpers';
@@ -12,16 +11,11 @@ import { getLimitsForSlippage } from './helpers';
 import vaultAbi from '../abi/Vault.json';
 
 export class SwapsService {
-    network: Network;
-    rpcUrl: string;
-    sor: SOR;
-
-    constructor(config: ConfigSdk) {
-        this.network = config.network;
-        this.rpcUrl = config.rpcUrl;
-        const provider = new JsonRpcProvider(this.rpcUrl);
-        this.sor = new SOR(provider, this.network, config.subgraphUrl);
-    }
+    constructor(
+        private readonly network: BalancerNetworkConfig,
+        private readonly sor: SOR,
+        private readonly provider: Provider
+    ) {}
 
     static getLimitsForSlippage(
         tokensIn: string[],
@@ -41,7 +35,7 @@ export class SwapsService {
             slippage
         );
 
-        return limits.map(l => l.toString());
+        return limits.map((l) => l.toString());
     }
 
     /**
@@ -50,11 +44,8 @@ export class SwapsService {
      * @param {boolean} [isOnChain=true] If isOnChain is true will retrieve all required onChain data via multicall otherwise uses subgraph values.
      * @returns {boolean} Boolean indicating whether pools data was fetched correctly (true) or not (false).
      */
-    async fetchPools(
-        poolsData: SubgraphPoolBase[] = [],
-        isOnChain = true
-    ): Promise<boolean> {
-        return this.sor.fetchPools(poolsData, isOnChain);
+    async fetchPools(): Promise<boolean> {
+        return this.sor.fetchPools();
     }
 
     /**
@@ -71,8 +62,7 @@ export class SwapsService {
         batchSwap: Pick<BatchSwap, 'kind' | 'swaps' | 'assets'>
     ): Promise<string[]> {
         // TO DO - Pull in a ContractsService and use this to pass Vault to queryBatchSwap.
-        const provider = new JsonRpcProvider(this.rpcUrl);
-        const vaultContract = new Contract(balancerVault, vaultAbi, provider);
+        const vaultContract = new Contract(balancerVault, vaultAbi, this.provider);
 
         return await queryBatchSwap(
             vaultContract,
@@ -94,13 +84,8 @@ export class SwapsService {
      */
     async queryBatchSwapWithSor(queryWithSor: QueryWithSorInput): Promise<QueryWithSorOutput> {
         // TO DO - Pull in a ContractsService and use this to pass Vault to queryBatchSwap.
-        const provider = new JsonRpcProvider(this.rpcUrl);
-        const vaultContract = new Contract(balancerVault, vaultAbi, provider);
+        const vaultContract = new Contract(balancerVault, vaultAbi, this.provider);
 
-        return await queryBatchSwapWithSor(
-            this.sor,
-            vaultContract,
-            queryWithSor
-        );
+        return await queryBatchSwapWithSor(this.sor, vaultContract, queryWithSor);
     }
 }

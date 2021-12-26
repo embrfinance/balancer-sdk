@@ -3,13 +3,7 @@ import { defaultAbiCoder } from '@ethersproject/abi';
 import { Wallet } from '@ethersproject/wallet';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
-import {
-    BalancerSDK,
-    Network,
-    ConfigSdk,
-    SUBGRAPH_URLS,
-    StablePoolEncoder,
-} from '../src/index';
+import { BalancerSDK, BalancerSdkConfig, Network, StablePoolEncoder } from '../src/index';
 import { AAVE_DAI, AAVE_USDT, STABAL3PHANTOM } from './constants';
 
 import balancerRelayerAbi from '../src/abi/BalancerRelayer.json';
@@ -22,10 +16,9 @@ User must approve relayer.
 Vault must have approvals for tokens.
 */
 async function relayerExitPoolAndBatchSwap() {
-    const config: ConfigSdk = {
+    const config: BalancerSdkConfig = {
         network: Network.KOVAN,
         rpcUrl: `https://kovan.infura.io/v3/${process.env.INFURA}`,
-        subgraphUrl: SUBGRAPH_URLS[Network.KOVAN],
     };
 
     const provider = new JsonRpcProvider(config.rpcUrl);
@@ -67,22 +60,16 @@ async function relayerExitPoolAndBatchSwap() {
         slippage: '50000000000000000', // Slippage for swap 5%
         fetchPools: {
             fetchPools: true,
-            fetchOnChain: false
-        }
+            fetchOnChain: false,
+        },
     });
 
-    const relayerContract = new Contract(
-        relayerAddress,
-        balancerRelayerAbi,
-        provider
-    );
-    const tx = await relayerContract
-        .connect(wallet)
-        .callStatic[txInfo.function](txInfo.params, {
-            value: '0',
-            // gasPrice: '6000000000',
-            // gasLimit: '2000000',
-        });
+    const relayerContract = new Contract(relayerAddress, balancerRelayerAbi, provider);
+    const tx = await relayerContract.connect(wallet).callStatic[txInfo.function](txInfo.params, {
+        value: '0',
+        // gasPrice: '6000000000',
+        // gasLimit: '2000000',
+    });
 
     console.log(`Amounts of tokensOut:`);
     console.log(txInfo.outputs.amountsOut.toString());

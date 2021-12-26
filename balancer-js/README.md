@@ -8,10 +8,10 @@ A JavaScript SDK which provides commonly used utilties for interacting with Bala
 ## Getting Started
 
 ```js
-import { BalancerSDK, ConfigSdk, Network } from '@balancer-labs/sdk';
+import { BalancerSDK, BalancerSdkConfig, Network } from '@balancer-labs/sdk';
 
-const config: ConfigSdk = {
-    network: Network.MAINNET,
+const config: BalancerSdkConfig = {
+    chainId: Network.MAINNET,
     rpcUrl: `https://kovan.infura.io/v3/${process.env.INFURA}`
 } 
 const balancer = new BalancerSDK(config);
@@ -23,7 +23,7 @@ The SwapsService provides function to query and make swaps using Balancer V2 liq
 
 ```js
 const swaps = new swapService({
-  network: Network;
+  chainId: Network;
   rpcUrl: string;
 });
 ```

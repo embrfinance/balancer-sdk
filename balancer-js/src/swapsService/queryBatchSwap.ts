@@ -32,12 +32,7 @@ export async function queryBatchSwap(
     };
 
     try {
-        const deltas = await vaultContract.queryBatchSwap(
-            swapType,
-            swaps,
-            assets,
-            funds
-        );
+        const deltas = await vaultContract.queryBatchSwap(swapType, swaps, assets, funds);
         return deltas.map((d: BigNumberish) => d.toString());
     } catch (err) {
         throw `queryBatchSwap call error: ${err}`;
@@ -52,8 +47,7 @@ export async function queryBatchSwapWithSor(
     vaultContract: Contract,
     queryWithSor: QueryWithSorInput
 ): Promise<QueryWithSorOutput> {
-    if (queryWithSor.fetchPools.fetchPools)
-        await sor.fetchPools([], queryWithSor.fetchPools.fetchOnChain);
+    if (queryWithSor.fetchPools.fetchPools) await sor.fetchPools();
 
     const swaps: BatchSwapStep[][] = [];
     const assetArray: string[][] = [];
@@ -92,9 +86,8 @@ export async function queryBatchSwapWithSor(
             returnTokens.forEach(
                 (t, i) =>
                     (returnAmounts[i] =
-                        deltas[
-                            batchedSwaps.assets.indexOf(t.toLowerCase())
-                        ].toString() ?? Zero.toString())
+                        deltas[batchedSwaps.assets.indexOf(t.toLowerCase())].toString() ??
+                        Zero.toString())
             );
         }
     } catch (err) {
@@ -121,9 +114,7 @@ async function getSorSwapInfo(
     sor: SOR
 ): Promise<SwapInfo> {
     const swapTypeSOR: SwapTypes =
-        swapType === SwapType.SwapExactIn
-            ? SwapTypes.SwapExactIn
-            : SwapTypes.SwapExactOut;
+        swapType === SwapType.SwapExactIn ? SwapTypes.SwapExactIn : SwapTypes.SwapExactOut;
     const swapInfo = await sor.getSwaps(
         tokenIn.toLowerCase(),
         tokenOut.toLowerCase(),
@@ -146,12 +137,8 @@ function batchSwaps(
     // Update indices of each swap to use new asset array
     swaps.forEach((swap, i) => {
         swap.forEach((poolSwap) => {
-            poolSwap.assetInIndex = newAssetArray.indexOf(
-                assetArray[i][poolSwap.assetInIndex]
-            );
-            poolSwap.assetOutIndex = newAssetArray.indexOf(
-                assetArray[i][poolSwap.assetOutIndex]
-            );
+            poolSwap.assetInIndex = newAssetArray.indexOf(assetArray[i][poolSwap.assetInIndex]);
+            poolSwap.assetOutIndex = newAssetArray.indexOf(assetArray[i][poolSwap.assetOutIndex]);
         });
     });
 
