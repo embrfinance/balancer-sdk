@@ -7995,6 +7995,34 @@
         }
     }
 
+    Object.defineProperty(exports, 'PoolFilter', {
+        enumerable: true,
+        get: function () { return sor.PoolFilter; }
+    });
+    Object.defineProperty(exports, 'SwapTypes', {
+        enumerable: true,
+        get: function () { return sor.SwapTypes; }
+    });
+    Object.defineProperty(exports, 'phantomStableBPTForTokensZeroPriceImpact', {
+        enumerable: true,
+        get: function () { return sor.phantomStableBPTForTokensZeroPriceImpact; }
+    });
+    Object.defineProperty(exports, 'queryBatchSwapTokensIn', {
+        enumerable: true,
+        get: function () { return sor.queryBatchSwapTokensIn; }
+    });
+    Object.defineProperty(exports, 'queryBatchSwapTokensOut', {
+        enumerable: true,
+        get: function () { return sor.queryBatchSwapTokensOut; }
+    });
+    Object.defineProperty(exports, 'stableBPTForTokensZeroPriceImpact', {
+        enumerable: true,
+        get: function () { return sor.stableBPTForTokensZeroPriceImpact; }
+    });
+    Object.defineProperty(exports, 'weightedBPTForTokensZeroPriceImpact', {
+        enumerable: true,
+        get: function () { return sor.weightedBPTForTokensZeroPriceImpact; }
+    });
     exports.AaveHelpers = AaveHelpers;
     exports.AssetHelpers = AssetHelpers;
     exports.BalancerErrors = BalancerErrors;

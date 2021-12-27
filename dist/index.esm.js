@@ -6,6 +6,7 @@ import { hexZeroPad, hexValue, splitSignature } from '@ethersproject/bytes';
 import { Signer } from '@ethersproject/abstract-signer';
 import { Contract } from '@ethersproject/contracts';
 import { SwapTypes, PoolFilter, SOR } from '@balancer-labs/sor';
+export { PoolFilter, SwapTypes, phantomStableBPTForTokensZeroPriceImpact, queryBatchSwapTokensIn, queryBatchSwapTokensOut, stableBPTForTokensZeroPriceImpact, weightedBPTForTokensZeroPriceImpact } from '@balancer-labs/sor';
 import { GraphQLClient } from 'graphql-request';
 import { parse } from 'graphql';
 import { set, parseInt as parseInt$1, keyBy } from 'lodash';
