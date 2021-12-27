@@ -1,7 +1,7 @@
 import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
 import { TokenPriceService, PoolDataService, SOR } from '@balancer-labs/sor';
-export { PoolFilter, SubgraphPoolBase, SwapInfo, SwapOptions, SwapTypes, SwapV2, phantomStableBPTForTokensZeroPriceImpact, queryBatchSwapTokensIn, queryBatchSwapTokensOut, stableBPTForTokensZeroPriceImpact, weightedBPTForTokensZeroPriceImpact } from '@balancer-labs/sor';
+export { PoolFilter, SOR, SubgraphPoolBase, SwapInfo, SwapOptions, SwapTypes, SwapV2, phantomStableBPTForTokensZeroPriceImpact, queryBatchSwapTokensIn, queryBatchSwapTokensOut, stableBPTForTokensZeroPriceImpact, weightedBPTForTokensZeroPriceImpact } from '@balancer-labs/sor';
 import { Provider, JsonRpcProvider } from '@ethersproject/providers';
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';

@@ -7999,6 +7999,10 @@
         enumerable: true,
         get: function () { return sor.PoolFilter; }
     });
+    Object.defineProperty(exports, 'SOR', {
+        enumerable: true,
+        get: function () { return sor.SOR; }
+    });
     Object.defineProperty(exports, 'SwapTypes', {
         enumerable: true,
         get: function () { return sor.SwapTypes; }
