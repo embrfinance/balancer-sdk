@@ -21,4 +21,5 @@ export {
     phantomStableBPTForTokensZeroPriceImpact,
     stableBPTForTokensZeroPriceImpact,
     weightedBPTForTokensZeroPriceImpact,
+    SOR,
 } from '@balancer-labs/sor';
