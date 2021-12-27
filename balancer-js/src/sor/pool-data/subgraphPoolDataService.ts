@@ -1,10 +1,5 @@
 import { PoolDataService, SubgraphPoolBase } from '@balancer-labs/sor';
-import {
-    createSubgraphClient,
-    OrderDirection,
-    Pool_OrderBy,
-    SubgraphClient,
-} from '../../subgraph/subgraph';
+import { OrderDirection, Pool_OrderBy, SubgraphClient } from '../../subgraph/subgraph';
 import { parseInt } from 'lodash';
 import { getOnChainBalances } from './onChainData';
 import { Provider } from '@ethersproject/providers';
@@ -16,6 +11,7 @@ const NETWORKS_WITH_LINEAR_POOLS = [
     Network.ROPSTEN,
     Network.RINKEBY,
     Network.GOERLI,
+    Network.KOVAN,
 ];
 
 export class SubgraphPoolDataService implements PoolDataService {
