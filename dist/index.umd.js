@@ -7789,6 +7789,7 @@
         exports.Network.ROPSTEN,
         exports.Network.RINKEBY,
         exports.Network.GOERLI,
+        exports.Network.KOVAN,
     ];
     class SubgraphPoolDataService {
         constructor(client, provider, network, sorConfig) {

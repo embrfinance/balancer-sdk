@@ -7794,6 +7794,7 @@ const NETWORKS_WITH_LINEAR_POOLS = [
     Network.ROPSTEN,
     Network.RINKEBY,
     Network.GOERLI,
+    Network.KOVAN,
 ];
 class SubgraphPoolDataService {
     constructor(client, provider, network, sorConfig) {
