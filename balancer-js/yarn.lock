@@ -483,7 +483,7 @@
 
 "@balancer-labs/sor@github:beethovenxfi/balancer-sor#daniel/sor-refactor-merged":
   version "2.1.0-beta.3"
-  resolved "https://codeload.github.com/beethovenxfi/balancer-sor/tar.gz/eada5855a0fd52d633f848e8f1d6d5b8028151ef"
+  resolved "https://codeload.github.com/beethovenxfi/balancer-sor/tar.gz/9936bd8b9c178012d794afa7e55cfac359ad77bd"
   dependencies:
     "@georgeroman/balancer-v2-pools" "0.0.7"
     isomorphic-fetch "^2.2.1"
