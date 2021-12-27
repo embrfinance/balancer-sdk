@@ -9,3 +9,16 @@ export * from './swapsService/helpers';
 export * from './constants/network';
 export * from './sdk';
 export * from './relayerService/index';
+export {
+    SwapInfo,
+    SubgraphPoolBase,
+    SwapTypes,
+    SwapOptions,
+    PoolFilter,
+    SwapV2,
+    queryBatchSwapTokensIn,
+    queryBatchSwapTokensOut,
+    phantomStableBPTForTokensZeroPriceImpact,
+    stableBPTForTokensZeroPriceImpact,
+    weightedBPTForTokensZeroPriceImpact,
+} from '@balancer-labs/sor';
