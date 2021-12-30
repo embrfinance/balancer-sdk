@@ -30,10 +30,9 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@balancer-labs/sor@^2.1.0-beta.4":
+"@balancer-labs/sor@github:beethovenxfi/balancer-sor#beethovenx-boosted-support":
   version "2.1.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@balancer-labs/sor/-/sor-2.1.0-beta.4.tgz#184b99861bf364f5348ba56a7bc9c971036e6e0e"
-  integrity sha512-q5W++wcMfF2MrVtlzK1XTWUgxQNqxTKOuWXMCpDpcpfHFe/n8UL9RMg8UMQl4dfFYUmThwqnXYad71ISyrRQNw==
+  resolved "https://codeload.github.com/beethovenxfi/balancer-sor/tar.gz/826f1314a5c16260deee33643c1486b2a6ddf792"
   dependencies:
     "@georgeroman/balancer-v2-pools" "0.0.7"
     isomorphic-fetch "^2.2.1"
