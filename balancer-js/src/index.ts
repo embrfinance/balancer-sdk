@@ -23,3 +23,5 @@ export {
     weightedBPTForTokensZeroPriceImpact,
     SOR,
 } from '@balancer-labs/sor';
+
+export * from './subgraph/generated/balancer-subgraph-types';

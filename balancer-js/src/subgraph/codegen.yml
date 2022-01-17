@@ -9,6 +9,7 @@ generates:
       - typescript-graphql-request
     config:
       enumsAsTypes: true
+      typesPrefix: Subgraph
       scalars:
         BigInt: string
         Bytes: string

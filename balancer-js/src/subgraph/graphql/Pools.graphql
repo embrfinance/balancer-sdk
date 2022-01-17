@@ -14,13 +14,13 @@ query Pools(
         where: $where
         block: $block
     ) {
-        ...SubgraphPool
+        ...Pool
     }
 }
 
 query Pool($id: ID!, $block: Block_height) {
     pool(id: $id, block: $block) {
-        ...SubgraphPool
+        ...Pool
     }
 }
 
@@ -40,17 +40,17 @@ query PoolsWithoutLinear(
         where: $where
         block: $block
     ) {
-        ...SubgraphPoolWithoutLinear
+        ...PoolWithoutLinear
     }
 }
 
 query PoolWithoutLinear($id: ID!, $block: Block_height) {
     pool(id: $id, block: $block) {
-        ...SubgraphPoolWithoutLinear
+        ...PoolWithoutLinear
     }
 }
 
-fragment SubgraphPool on Pool {
+fragment Pool on Pool {
     id
     address
     poolType
@@ -63,7 +63,7 @@ fragment SubgraphPool on Pool {
     totalLiquidity
     totalShares
     tokens(first: 100) {
-        ...SubgraphPoolToken
+        ...PoolToken
     }
     swapsCount
     holdersCount
@@ -81,7 +81,7 @@ fragment SubgraphPool on Pool {
     upperTarget
 }
 
-fragment SubgraphPoolWithoutLinear on Pool {
+fragment PoolWithoutLinear on Pool {
     id
     address
     poolType
@@ -94,7 +94,7 @@ fragment SubgraphPoolWithoutLinear on Pool {
     totalLiquidity
     totalShares
     tokens(first: 1000) {
-        ...SubgraphPoolToken
+        ...PoolToken
     }
     swapsCount
     holdersCount
@@ -108,7 +108,7 @@ fragment SubgraphPoolWithoutLinear on Pool {
     swapEnabled
 }
 
-fragment SubgraphPoolToken on PoolToken {
+fragment PoolToken on PoolToken {
     id
     symbol
     name
@@ -164,11 +164,11 @@ query PoolSnapshots(
         where: $where
         block: $block
     ) {
-        ...SubgraphPoolSnapshot
+        ...PoolSnapshot
     }
 }
 
-fragment SubgraphPoolSnapshot on PoolSnapshot {
+fragment PoolSnapshot on PoolSnapshot {
     id
     pool {
         id
@@ -195,11 +195,11 @@ query JoinExits(
         where: $where
         block: $block
     ) {
-        ...SubgraphJoinExit
+        ...JoinExit
     }
 }
 
-fragment SubgraphJoinExit on JoinExit {
+fragment JoinExit on JoinExit {
     amounts
     id
     sender
