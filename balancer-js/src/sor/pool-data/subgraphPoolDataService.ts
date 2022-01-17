@@ -1,9 +1,5 @@
 import { PoolDataService, SubgraphPoolBase } from '@balancer-labs/sor';
-import {
-    OrderDirection,
-    Pool_OrderBy,
-    SubgraphClient,
-} from '../../subgraph/subgraph';
+import { SubgraphClient } from '../../subgraph/subgraph';
 import { parseInt } from 'lodash';
 import { getOnChainBalances } from './onChainData';
 import { Provider } from '@ethersproject/providers';
@@ -67,8 +63,8 @@ export class SubgraphPoolDataService implements PoolDataService {
     private async getLinearPools() {
         const { pools } = await this.client.Pools({
             where: { swapEnabled: true },
-            orderBy: Pool_OrderBy.TotalLiquidity,
-            orderDirection: OrderDirection.Desc,
+            orderBy: 'totalLiquidity',
+            orderDirection: 'desc',
         });
 
         return pools;
@@ -77,8 +73,8 @@ export class SubgraphPoolDataService implements PoolDataService {
     private async getNonLinearPools() {
         const { pools } = await this.client.PoolsWithoutLinear({
             where: { swapEnabled: true },
-            orderBy: Pool_OrderBy.TotalLiquidity,
-            orderDirection: OrderDirection.Desc,
+            orderBy: 'totalLiquidity',
+            orderDirection: 'desc',
         });
 
         return pools;
