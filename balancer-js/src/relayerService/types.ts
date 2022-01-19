@@ -1,7 +1,12 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
 import { ExitPoolRequest } from '../types';
-import { SwapType, BatchSwapStep, FundManagement, FetchPoolsInput } from '../swapsService/types';
+import {
+    SwapType,
+    BatchSwapStep,
+    FundManagement,
+    FetchPoolsInput,
+} from '../swapsService/types';
 
 export type OutputReference = {
     index: number;
@@ -37,14 +42,26 @@ export interface EncodeUnwrapAaveStaticTokenInput {
     outputReferences: BigNumberish;
 }
 
+export interface EncodeUnwrapYearnVaultTokenInput {
+    vaultToken: string;
+    sender: string;
+    recipient: string;
+    amount: BigNumberish;
+    outputReference: BigNumberish;
+}
+
 export interface ExitAndBatchSwapInput {
     exiter: string;
     swapRecipient: string;
     poolId: string;
     exitTokens: string[];
     userData: string;
-    minExitAmountsOut: string[];
+    expectedAmountsOut: string[];
     finalTokensOut: string[];
     slippage: string;
     fetchPools: FetchPoolsInput;
 }
+
+export type ExitPoolData = ExitPoolRequest & EncodeExitPoolInput;
+
+export type UnwrapType = 'aave' | 'yearn';

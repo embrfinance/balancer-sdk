@@ -66,7 +66,7 @@ async function runRelayerSwapUnwrapExactIn() {
         provider
     );
 
-    const txInfo = await balancer.relayer.swapUnwrapAaveStaticExactIn(
+    const txInfo = await balancer.relayer.swapUnwrapExactIn(
         [
             STABAL3PHANTOM.address,
             STABAL3PHANTOM.address,
@@ -84,7 +84,8 @@ async function runRelayerSwapUnwrapExactIn() {
         ],
         [daiRate, usdcRate, usdtRate],
         funds,
-        '50000000000000000' // Slippage 5%
+        '50000000000000000', // Slippage 5%
+        'aave'
     );
 
     const relayerContract = new Contract(
@@ -147,7 +148,7 @@ async function runRelayerSwapUnwrapExactOut() {
         provider
     );
 
-    const txInfo = await balancer.relayer.swapUnwrapAaveStaticExactOut(
+    const txInfo = await balancer.relayer.swapUnwrapExactOut(
         [
             STABAL3PHANTOM.address,
             STABAL3PHANTOM.address,
@@ -161,7 +162,8 @@ async function runRelayerSwapUnwrapExactOut() {
         [parseFixed('1', 16).toString(), '1000', '1000'], // Amount of unwrapped Aave token we want to receive
         [daiRate, usdcRate, usdtRate],
         funds,
-        '50000000000000000' // Slippage 5%
+        '50000000000000000', // Slippage 5%
+        'aave'
     );
 
     const relayerContract = new Contract(
