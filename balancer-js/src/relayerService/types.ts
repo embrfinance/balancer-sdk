@@ -42,6 +42,14 @@ export interface EncodeUnwrapAaveStaticTokenInput {
     outputReferences: BigNumberish;
 }
 
+export interface EncodeUnwrapYearnVaultTokenInput {
+    vaultToken: string;
+    sender: string;
+    recipient: string;
+    amount: BigNumberish;
+    outputReference: BigNumberish;
+}
+
 export interface ExitAndBatchSwapInput {
     exiter: string;
     swapRecipient: string;
@@ -55,3 +63,5 @@ export interface ExitAndBatchSwapInput {
 }
 
 export type ExitPoolData = ExitPoolRequest & EncodeExitPoolInput;
+
+export type UnwrapType = 'aave' | 'yearn';

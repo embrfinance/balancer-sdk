@@ -89,7 +89,7 @@ const relayer = new relayerService(
 );
 ```
 
-### swapUnwrapAaveStaticExactIn
+### swapUnwrapExactIn
 
 Finds swaps for tokenIn>wrapped Aave static tokens and chains with unwrap to underlying stable. ExactIn - Exact amount of tokenIn to use in swap.
 
@@ -102,13 +102,14 @@ Finds swaps for tokenIn>wrapped Aave static tokens and chains with unwrap to und
 @param fetchPools - Set whether SOR will fetch updated pool info.
 @returns Transaction data with calldata. Outputs.amountsOut has final amounts out of unwrapped tokens.
 ```js
-async relayer.swapUnwrapAaveStaticExactIn(
+async relayer.swapUnwrapExactIn(
     tokensIn: string[],
     aaveStaticTokens: string[],
     amountsIn: BigNumberish[],
     rates: BigNumberish[],
     funds: FundManagement,
     slippage: BigNumberish,
+    unwrapType: UnwrapType,
     fetchPools: FetchPoolsInput = {
         fetchPools: true,
         fetchOnChain: false
@@ -118,7 +119,7 @@ async relayer.swapUnwrapAaveStaticExactIn(
 
 [Example](./examples/relayerSwapUnwrap.ts)
 
-### swapUnwrapAaveStaticExactOut
+### swapUnwrapExactOut
 
 Finds swaps for tokenIn>wrapped Aave static tokens and chains with unwrap to underlying stable. ExactOut - Exact amount of tokens out are used for swaps.
 
@@ -131,7 +132,7 @@ Finds swaps for tokenIn>wrapped Aave static tokens and chains with unwrap to und
 @param fetchPools - Set whether SOR will fetch updated pool info.
 @returns Transaction data with calldata. Outputs.amountsIn has the amounts of tokensIn.
 ```js
-async relayer.swapUnwrapAaveStaticExactOut(
+async relayer.swapUnwrapExactOut(
     tokensIn: string[],
     aaveStaticTokens: string[],
     amountsUnwrapped: BigNumberish[],
