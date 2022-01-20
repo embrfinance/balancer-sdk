@@ -4,9 +4,14 @@ import { SOR, SubgraphPoolBase } from '@balancer-labs/sor';
 
 import { ConfigSdk } from '../types';
 import { Network } from '../constants/network';
-import { SwapType, QueryWithSorInput, QueryWithSorOutput, BatchSwap } from './types';
+import {
+    SwapType,
+    QueryWithSorInput,
+    QueryWithSorOutput,
+    BatchSwap,
+} from './types';
 import { queryBatchSwap, queryBatchSwapWithSor } from './queryBatchSwap';
-import { balancerVault } from '../constants/contracts';
+import { balancerVaultMap } from '../constants/contracts';
 import { getLimitsForSlippage } from './helpers';
 
 import vaultAbi from '../abi/Vault.json';
@@ -41,7 +46,7 @@ export class SwapsService {
             slippage
         );
 
-        return limits.map(l => l.toString());
+        return limits.map((l) => l.toString());
     }
 
     /**
@@ -72,7 +77,11 @@ export class SwapsService {
     ): Promise<string[]> {
         // TO DO - Pull in a ContractsService and use this to pass Vault to queryBatchSwap.
         const provider = new JsonRpcProvider(this.rpcUrl);
-        const vaultContract = new Contract(balancerVault, vaultAbi, provider);
+        const vaultContract = new Contract(
+            balancerVaultMap[this.network] || '',
+            vaultAbi,
+            provider
+        );
 
         return await queryBatchSwap(
             vaultContract,
@@ -92,10 +101,16 @@ export class SwapsService {
      * @param {FetchPoolsInput} queryWithSor.fetchPools - Set whether SOR will fetch updated pool info.
      * @returns {Promise<QueryWithSorOutput>} Returns amount of tokens swaps along with swap and asset info that can be submitted to a batchSwap call.
      */
-    async queryBatchSwapWithSor(queryWithSor: QueryWithSorInput): Promise<QueryWithSorOutput> {
+    async queryBatchSwapWithSor(
+        queryWithSor: QueryWithSorInput
+    ): Promise<QueryWithSorOutput> {
         // TO DO - Pull in a ContractsService and use this to pass Vault to queryBatchSwap.
         const provider = new JsonRpcProvider(this.rpcUrl);
-        const vaultContract = new Contract(balancerVault, vaultAbi, provider);
+        const vaultContract = new Contract(
+            balancerVaultMap[this.network] || '',
+            vaultAbi,
+            provider
+        );
 
         return await queryBatchSwapWithSor(
             this.sor,
