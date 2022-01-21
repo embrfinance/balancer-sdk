@@ -32,7 +32,7 @@
 
 "@balancer-labs/sor@github:beethovenxfi/balancer-sor#beethovenx-boosted-support":
   version "2.1.0-beta.4"
-  resolved "https://codeload.github.com/beethovenxfi/balancer-sor/tar.gz/826f1314a5c16260deee33643c1486b2a6ddf792"
+  resolved "https://codeload.github.com/beethovenxfi/balancer-sor/tar.gz/6570541d17c2e14fa6a345383e641f65055a6234"
   dependencies:
     "@georgeroman/balancer-v2-pools" "0.0.7"
     isomorphic-fetch "^2.2.1"
