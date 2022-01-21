@@ -2662,8 +2662,8 @@ var yearnWrappingAbi = [
 	{
 		inputs: [
 			{
-				internalType: "contract IStaticATokenLM",
-				name: "staticToken",
+				internalType: "contract IYearnTokenVault",
+				name: "vaultToken",
 				type: "address"
 			},
 			{
@@ -2682,56 +2682,12 @@ var yearnWrappingAbi = [
 				type: "uint256"
 			},
 			{
-				internalType: "bool",
-				name: "toUnderlying",
-				type: "bool"
-			},
-			{
 				internalType: "uint256",
 				name: "outputReference",
 				type: "uint256"
 			}
 		],
-		name: "unwrapAaveStaticToken",
-		outputs: [
-		],
-		stateMutability: "payable",
-		type: "function"
-	},
-	{
-		inputs: [
-			{
-				internalType: "contract IStaticATokenLM",
-				name: "staticToken",
-				type: "address"
-			},
-			{
-				internalType: "address",
-				name: "sender",
-				type: "address"
-			},
-			{
-				internalType: "address",
-				name: "recipient",
-				type: "address"
-			},
-			{
-				internalType: "uint256",
-				name: "amount",
-				type: "uint256"
-			},
-			{
-				internalType: "bool",
-				name: "fromUnderlying",
-				type: "bool"
-			},
-			{
-				internalType: "uint256",
-				name: "outputReference",
-				type: "uint256"
-			}
-		],
-		name: "wrapAaveDynamicToken",
+		name: "unwrapYearnVaultToken",
 		outputs: [
 		],
 		stateMutability: "payable",
