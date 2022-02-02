@@ -30,7 +30,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@balancer-labs/sor@github:beethovenxfi/balancer-sor#beethovenx-boosted-support":
+"@balancer-labs/sor@github:beethovenxfi/balancer-sor#bcfe1123eb19f7a4473d48d29e51917b9a7e20ae":
   version "2.1.0-beta.4"
   resolved "https://codeload.github.com/beethovenxfi/balancer-sor/tar.gz/bcfe1123eb19f7a4473d48d29e51917b9a7e20ae"
   dependencies:
