@@ -152,7 +152,9 @@ declare enum Network {
     GÖRLI = 5,
     KOVAN = 42,
     POLYGON = 137,
-    ARBITRUM = 42161
+    ARBITRUM = 42161,
+    AVALANCHE = 43114,
+    FUJI = 43113
 }
 
 declare enum PoolSpecialization {
